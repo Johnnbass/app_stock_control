@@ -20,7 +20,7 @@ class VendorController extends Controller
      */
     private function find($id)
     {
-        return $this->vendor->find($id);
+        return $this->vendor->with(['products'])->find($id);
     }
 
     /**
@@ -66,7 +66,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        $vendor = $this->vendor->all();
+        $vendor = $this->vendor->with('products')->get();
         if ($vendor->count() === 0) {
             return $this->setError();
         }

@@ -37,4 +37,9 @@ class Category extends Model
             'description.max' => 'A descrição deve ter no máximo 100 caracteres'
         ];
     }
+
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product');
+    }
 }

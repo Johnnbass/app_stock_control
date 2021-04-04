@@ -14,7 +14,8 @@
   $ sudo apt install php7.4-mbstring php7.4-dom -y
 
 - A partir da raiz do projeto, instale as dependências do projeto:<br>
-  $ composer install
+  $ composer install<br>
+  $ npm install
 
 - A partir da sua conexão de banco de dados local, crie a database "stock_control" e configure em conjunto com as credenciais de conexão com o banco conforme .env.example
 

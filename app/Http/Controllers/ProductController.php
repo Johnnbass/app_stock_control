@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     private function find($id)
     {
-        return $this->product->find($id);
+        return $this->product->with(['vendor', 'category'])->find($id);
     }
 
     /**
@@ -91,7 +91,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = $this->product->all();
+        $product = $this->product->with(['vendor', 'category'])->get();
         if ($product->count() === 0) {
             return $this->setError();
         }

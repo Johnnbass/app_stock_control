@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     private function find($id)
     {
-        return $this->category->find($id);
+        return $this->category->with(['products'])->find($id);
     }
 
     /**
@@ -66,7 +66,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json($this->category->all(), 200);
+        $category = $this->category->with(['products'])->get();
+        if ($category->count() === 0) {
+            return $this->setError();
+        }
+        return response()->json($category, 200);
     }
 
     /**

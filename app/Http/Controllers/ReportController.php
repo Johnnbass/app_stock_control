@@ -30,7 +30,11 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return response()->json($this->report->all(), 200);
+        $report = $this->report->all();
+        if ($report->count() === 0) {
+            return $this->setError();
+        }
+        return response()->json($report, 200);
     }
 
     /**

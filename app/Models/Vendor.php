@@ -41,4 +41,9 @@ class Vendor extends Model
             'address.max' => 'O Endereço deve ter no máximo 200 caracteres'
         ];
     }
+
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product');
+    }
 }

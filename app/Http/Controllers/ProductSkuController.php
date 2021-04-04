@@ -18,16 +18,6 @@ class ProductSkuController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,17 +35,6 @@ class ProductSkuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(ProductSku $productSku)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ProductSku  $productSku
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProductSku $productSku)
     {
         //
     }

@@ -7,79 +7,135 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(Vendor $vendor)
     {
-        //
+        $this->vendor = $vendor;
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * Retrieve specific data from database
+     * 
+     * @param Integer $id
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    private function find($id)
     {
-        //
+        return $this->vendor->find($id);
+    }
+
+    /**
+     * defines json return error
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function setError()
+    {
+        return response()->json([
+            'error' => 'Não foi possível concluir a operação. Registro não encontrado.'
+        ], 404);
+    }
+
+    /**
+     * Validate fields
+     * 
+     * @param $request
+     * @return \Illuminate\Http\Response
+     */
+    private function validateForm($request)
+    {
+        $rules = $this->vendor->rules();
+        $feedback = $this->vendor->feedback();
+
+        if ($request->method() === 'PATCH') {
+            $dRules = array();
+
+            foreach ($rules as $input => $rule) {
+                if (array_key_exists($input, $request->all())) {
+                    $dRules[$input] = $rule;
+                }
+            }
+            $rules = $dRules;
+        }
+
+        $request->validate($rules, $feedback);
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        return response()->json($this->vendor->all(), 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->validateForm($request);
+
+        $vendor = $this->vendor->create($request->all());
+
+        return response()->json($vendor, 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Vendor  $vendor
-     * @return \Illuminate\Http\Response
+     * @param Integer $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Vendor $vendor)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Vendor  $vendor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Vendor $vendor)
-    {
-        //
+        $vendor = $this->find($id);
+        if ($vendor === null) {
+            return $this->setError();
+        }
+        
+        return response()->json($vendor, 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Vendor  $vendor
-     * @return \Illuminate\Http\Response
+     * @param  Integer $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Vendor $vendor)
+    public function update(Request $request, $id)
     {
-        //
+        $vendor = $this->find($id);
+        if ($vendor === null) {
+            return $this->setError();
+        }
+
+        $this->validateForm($request);
+
+        $vendor->update($request->all());
+
+        return response()->json($vendor, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Vendor  $vendor
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Vendor $vendor)
+    public function destroy($id)
     {
-        //
+        $vendor = $this->find($id);
+        if ($vendor === null) {
+            return $this->setError();
+        }
+
+        $vendor->delete();
+        
+        return response()->json(['msg' => 'O fornecedor foi excluído com sucesso'], 200);
     }
 }

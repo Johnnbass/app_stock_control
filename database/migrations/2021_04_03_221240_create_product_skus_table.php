@@ -15,7 +15,7 @@ class CreateProductSkusTable extends Migration
     {
         Schema::create('product_skus', function (Blueprint $table) {
             $table->id();
-            $table->string('product_sku', 50);
+            $table->string('product_sku', 50)->unique();
             $table->timestamps();
         });
     }

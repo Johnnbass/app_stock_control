@@ -13,7 +13,7 @@ class VendorController extends Controller
     }
 
     /**
-     * Retrieve specific data from database
+     * Return the specified vendor data from vendors table
      * 
      * @param Integer $id
      * @return \Illuminate\Http\Response
@@ -24,7 +24,7 @@ class VendorController extends Controller
     }
 
     /**
-     * defines json return error
+     * defines json response error
      * 
      * @return \Illuminate\Http\JsonResponse
      */
@@ -38,7 +38,7 @@ class VendorController extends Controller
     /**
      * Validate fields
      * 
-     * @param $request
+     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     private function validateForm($request)
@@ -124,7 +124,7 @@ class VendorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Vendor  $vendor
+     * @param  Integer $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)

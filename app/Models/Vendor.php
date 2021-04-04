@@ -11,7 +11,7 @@ class Vendor extends Model
     protected $fillable = ['name', 'email', 'address'];
 
     /**
-     * Field rules
+     * Field validation rules
      * 
      * @return Array
      */

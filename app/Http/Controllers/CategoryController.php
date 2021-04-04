@@ -7,58 +7,135 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function __construct(Category $category)
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * Return the specified category data from categories table
+     * 
+     * @param Integer $id
+     * @return \Illuminate\Http\Response
+     */
+    private function find($id)
+    {
+        return $this->category->find($id);
+    }
+
+    /**
+     * defines json response error
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function setError()
+    {
+        return response()->json([
+            'error' => 'Não foi possível concluir a operação. Registro não encontrado.'
+        ], 404);
+    }
+
+    /**
+     * Validate fields
+     * 
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    private function validateForm($request)
+    {
+        $rules = $this->category->rules();
+        $feedback = $this->category->feedback();
+
+        if ($request->method() === 'PATCH') {
+            $dRules = array();
+
+            foreach ($rules as $input => $rule) {
+                if (array_key_exists($input, $request->all())) {
+                    $dRules[$input] = $rule;
+                }
+            }
+            $rules = $dRules;
+        }
+
+        $request->validate($rules, $feedback);
+    }
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        return response()->json($this->category->all(), 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->validateForm($request);
+
+        $category = $this->category->create($request->all());
+
+        return response()->json($category, 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Integer $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = $this->find($id);
+        if ($category === null) {
+            return $this->setError();
+        }
+        
+        return response()->json($category, 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param  Integer $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $category = $this->find($id);
+        if ($category === null) {
+            return $this->setError();
+        }
+
+        $this->validateForm($request);
+
+        $category->update($request->all());
+
+        return response()->json($category, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param  Integer $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = $this->find($id);
+        if ($category === null) {
+            return $this->setError();
+        }
+
+        $category->delete();
+        
+        return response()->json(['msg' => 'A categoria foi excluída com sucesso'], 200);
     }
 }

@@ -24,7 +24,7 @@ class VendorController extends Controller
     }
 
     /**
-     * defines json response error
+     * sets json response error
      * 
      * @return \Illuminate\Http\JsonResponse
      */
@@ -66,7 +66,12 @@ class VendorController extends Controller
      */
     public function index()
     {
-        return response()->json($this->vendor->all(), 200);
+        $vendor = $this->vendor->all();
+        if ($vendor->count() === 0) {
+            return $this->setError();
+        }
+
+        return response()->json($vendor, 200);
     }
 
     /**

@@ -18,7 +18,8 @@ class CreateReportsTable extends Migration
             $table->string('product_sku', 50);
             $table->string('type', 3)->comment('add - additions | sub - subtractions');
             $table->integer('amount');
-            $table->string('note')->nullable();
+            $table->text('note')->nullable();
+            $table->string('origin', 7);
             $table->timestamps();
         });
     }

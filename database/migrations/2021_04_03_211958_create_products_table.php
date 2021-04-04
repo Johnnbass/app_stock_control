@@ -15,11 +15,11 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sku_id');
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('category_id');
+            $table->string('sku', 50)->unique()->comment('XXX YYY ZZZ 0000000000 - fornecedor + categoria + nome do produto + unix timestamp');
             $table->string('name', 50);
-            $table->string('description');
+            $table->text('description');
             $table->integer('amount');
             $table->timestamps();
         });

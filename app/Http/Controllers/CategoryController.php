@@ -24,7 +24,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * defines json response error
+     * sets json response error
      * 
      * @return \Illuminate\Http\JsonResponse
      */

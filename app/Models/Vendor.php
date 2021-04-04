@@ -18,7 +18,7 @@ class Vendor extends Model
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:50',
+            'name' => 'required|min:5|max:50',
             'email' => 'email',
             'address' => 'required|min:10|max:200'
         ];
@@ -33,7 +33,7 @@ class Vendor extends Model
     {
         return [
             'name.required' => 'O nome deve ser informado',
-            'name.min' => 'O Nome deve ter no mínimo 3 caracteres',
+            'name.min' => 'O Nome deve ter no mínimo 5 caracteres',
             'name.max' => 'O Nome deve ter no máximo 50 caracteres',
             'email.email' => 'Deve ser informado um e-mail válido',
             'address.required' => 'O endereço deve ser informado',

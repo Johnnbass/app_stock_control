@@ -18,7 +18,7 @@ class Category extends Model
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:50',
+            'name' => 'required|min:5|max:50',
             'description' => 'max:100'
         ];
     }
@@ -32,7 +32,7 @@ class Category extends Model
     {
         return [
             'name.required' => 'O nome deve ser informado',
-            'name.min' => 'O Nome deve ter no mínimo 3 caracteres',
+            'name.min' => 'O Nome deve ter no mínimo 5 caracteres',
             'name.max' => 'O Nome deve ter no máximo 50 caracteres',
             'description.max' => 'A descrição deve ter no máximo 100 caracteres'
         ];

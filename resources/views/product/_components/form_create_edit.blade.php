@@ -28,6 +28,6 @@
     <input type="number" class="form-control" name="amount" id="amount"
         placeholder="Quantidade" min="0" value="0" />
   </div>
-  <button type="submit" class="btn btn-info btn-sm">Salvar</button>
+  <button type="submit" class="btn btn-success btn-sm">Salvar</button>
   <button onclick="cancela()" class="btn btn-danger btn-sm">Cancelar</button>
 </form>

@@ -34,8 +34,8 @@
                             Aqui você pode adicionar novos, repor o estoque ou fazer a baixa dos produtos
                         </p>
                         <a href="/produtos/novo" class="btn btn-primary">Novo</a>
-                        <a href="/produtos/adicionar-produtos" class="btn btn-outline-primary">Reposição</a>
-                        <a href="/produtos/baixar-produtos" class="btn btn-outline-primary">Baixa</a>
+                        <a href="/produtos/adicionar-produtos" class="btn btn-outline-success">Reposição</a>
+                        <a href="/produtos/baixar-produtos" class="btn btn-outline-danger">Baixa</a>
                     </div>
                 </div>
             </div>

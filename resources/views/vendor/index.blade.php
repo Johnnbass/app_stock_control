@@ -1,9 +1,9 @@
-@extends('layout.app', ["current" => "fornecedores"])
+@extends('layouts.app', ["current" => "fornecedores"])
 
 @section('body')
     <div class="card border">
         <div class="card-header">
-            <a href="/fornecedores/novo" class="btn btn-sm btn-info" role="button">Novo fornecedor</a>
+            <a href="/fornecedores/novo" class="btn btn-sm btn-primary" role="button">Novo fornecedor</a>
         </div>
         <div class="card-body">
             <h5 class="card-title">Fornecedores</h5>

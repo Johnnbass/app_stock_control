@@ -22,7 +22,11 @@ class ProductController extends Controller
      */
     private function find($id)
     {
-        return $this->product->with(['vendor', 'category'])->find($id);
+        $product = $this->product->with(['vendor', 'category'])->find($id);
+        if ($product === null) {
+            return $this->setError();
+        }
+        return $product;
     }
 
     /**
@@ -33,7 +37,7 @@ class ProductController extends Controller
     private function setError()
     {
         return response()->json([
-            'error' => 'Não foi possível concluir a operação. Registro não encontrado.'
+            'msg' => 'Não foi possível concluir a operação. Registro não encontrado.'
         ], 404);
     }
 
@@ -75,7 +79,7 @@ class ProductController extends Controller
         $vendor = $this->caractersProcessing(Vendor::find($request->get('vendor_id'))->name);
         $category = $this->caractersProcessing(Category::find($request->get('category_id'))->name);
         $product = $this->caractersProcessing($request->get('name'));;
-        
+
         return "{$vendor} {$category} {$product} {$timestamp}";
     }
 
@@ -130,9 +134,6 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = $this->find($id);
-        if ($product === null) {
-            return $this->setError();
-        }
 
         return response()->json($product, 200);
     }
@@ -147,9 +148,6 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = $this->find($id);
-        if ($product === null) {
-            return $this->setError();
-        }
 
         $this->validateForm($request);
 
@@ -167,12 +165,60 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = $this->find($id);
-        if ($product === null) {
-            return $this->setError();
-        }
 
         $product->delete();
 
         return response()->json(['msg' => 'O produto foi excluído com sucesso'], 200);
+    }
+
+    public function dataProcessing($request)
+    {
+        $id = (int) $request->get('product_id');
+
+        $request->validate(
+            ['product_id' => 'required'], 
+            ['product_id.required' => 'Precisa ser informado um produto válido']
+        );
+
+        $product = $this->find($id);
+
+        return $product;
+    }
+
+    /**
+     * Products stock increment
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function increment(Request $request)
+    {
+        $amount = (int) $request->get('amount');
+        $product = $this->dataProcessing($request);
+
+        $product->amount += $amount;
+        $amount = $product->amount;
+
+        $product->update();
+
+        return response()->json(['msg' => "Quantidade atualizada com sucesso. Saldo atual: {$amount}"], 200);
+    }
+
+    /**
+     * Products stock decrement
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function decrement(Request $request)
+    {
+        $amount = (int) $request->get('amount');
+        $product = $this->dataProcessing($request);
+
+        $product->amount -= $amount;
+        $amount = $product->amount;
+        $product->update();
+
+        return response()->json(['msg' => "Quantidade atualizada com sucesso. Saldo atual: {$amount}"], 200);
     }
 }

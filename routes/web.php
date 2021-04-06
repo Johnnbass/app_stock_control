@@ -57,9 +57,9 @@ Route::prefix('/produto')->group(function() {
         return view('product.create_edit', ['id' => $id]);
     });
     Route::get('/adicionar-produtos', function () {
-        return view('product.add_sub');
+        return view('product.add_sub', ['opType' => 'add']);
     });
     Route::get('/baixar-produtos', function () {
-        return view('product.add_sub');
+        return view('product.add_sub', ['opType' => 'sub']);
     });
 });

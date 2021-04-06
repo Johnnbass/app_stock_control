@@ -62,6 +62,7 @@ $(`#${menuForm}`).submit(function(e) {
 function loadData(id) {
     $.getJSON(endpoint + id, function(data) {
         for (field of fields) {
+            if (field === 'amount' && data[field] === undefined) continue;
             $(`#${field}`).val(data[field]);
         }
     });

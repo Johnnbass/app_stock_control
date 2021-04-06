@@ -24,3 +24,4 @@ Route::apiResource('categoria', 'CategoryController');
 
 Route::post('adicionar-produtos', 'ProductController@increment');
 Route::post('baixar-produtos', 'ProductController@decrement');
+

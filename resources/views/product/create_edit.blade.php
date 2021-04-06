@@ -13,15 +13,8 @@
 
 @section('javascript')
     <script src="{{ asset('js/create_edit.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/select_loader.js') }}" type="text/javascript"></script>
     <script>
-        function loadSelect(select) {
-            $.getJSON(`/api/${select[1]}`, function(data) {
-                for (let i = 0; i < data.length; i++) {
-                    option = `<option value="${data[i].id}">${data[i].name}</option>`;
-                    $(`#${select[0]}_id`).append(option);
-                }
-            });
-        }
         loadSelect(["vendor", "fornecedor"]);
         loadSelect(["category", "categoria"]);
     </script>

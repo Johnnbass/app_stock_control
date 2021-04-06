@@ -4,6 +4,8 @@
     <div class="card border">
         <div class="card-header">
             <a href="/produto/novo" class="btn btn-sm btn-primary" role="button">Novo produto</a>
+            <a href="/produto/adicionar-produtos" class="btn btn-sm btn-outline-secondary">Reposição</a>
+            <a href="/produto/baixar-produtos" class="btn btn-sm btn-outline-danger">Baixa</a>
         </div>
         <div class="card-body">
             <h5 class="card-title">Produtos</h5>
@@ -49,7 +51,7 @@
                             <td>${data.description}</td>
                             <td>${data.amount}</td>
                             <td>
-                                <button class="btn btn-sm btn-warning" onclick="editData(${data.id})">Editar</button>
+                                <button class="btn btn-sm btn-secondary" onclick="editData(${data.id})">Editar</button>
                                 <button class="btn btn-sm btn-danger" onclick="deleteData(${data.id})">Excluir</button>
                             </td>
                         </tr>`;

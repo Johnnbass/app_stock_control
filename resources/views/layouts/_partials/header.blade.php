@@ -16,14 +16,14 @@
             <li @if ($current == 'home') class="nav-item active" @else class="nav-item" @endif>
                 <a class="nav-link" href="/">Home </a>
             </li>
-            <li @if ($current == 'produtos') class="nav-item active" @else class="nav-item" @endif>
-                <a class="nav-link" href="/produtos">Produtos</a>
+            <li @if ($current == 'produto') class="nav-item active" @else class="nav-item" @endif>
+                <a class="nav-link" href="/produto">Produtos</a>
             </li>
-            <li @if ($current == 'categorias') class="nav-item active" @else class="nav-item" @endif>
-                <a class="nav-link" href="/categorias">Categorias </a>
+            <li @if ($current == 'categoria') class="nav-item active" @else class="nav-item" @endif>
+                <a class="nav-link" href="/categoria">Categorias </a>
             </li>
-            <li @if ($current == 'fornecedores') class="nav-item active" @else class="nav-item" @endif>
-              <a class="nav-link" href="/fornecedores">Fornecedores </a>
+            <li @if ($current == 'fornecedor') class="nav-item active" @else class="nav-item" @endif>
+              <a class="nav-link" href="/fornecedor">Fornecedores </a>
           </li>
         </ul>
     </div>

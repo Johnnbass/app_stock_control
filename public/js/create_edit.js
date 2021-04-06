@@ -60,9 +60,6 @@ $(`#${menuForm}`).submit(function(e) {
 });
 
 function loadData(id) {
-    loadSelect(["vendor", "fornecedor"]);
-    loadSelect(["category", "categoria"]);
-    
     $.getJSON(endpoint + id, function(data) {
         for (field of fields) {
             $(`#${field}`).val(data[field]);

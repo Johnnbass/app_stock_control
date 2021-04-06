@@ -22,5 +22,7 @@
                 }
             });
         }
+        loadSelect(["vendor", "fornecedor"]);
+        loadSelect(["category", "categoria"]);
     </script>
 @endsection

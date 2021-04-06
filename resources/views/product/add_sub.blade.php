@@ -1,4 +1,4 @@
-@extends('layouts.app', ["current" => "produtos"])
+@extends('layouts.app', ["current" => "produto"])
 
 @section('body')
 
@@ -12,7 +12,5 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript">
-        
-    </script>
+    <script src="{{ asset('js/create_edit.js') }}" type="text/javascript"></script>
 @endsection

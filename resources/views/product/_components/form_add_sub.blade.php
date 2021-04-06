@@ -13,5 +13,5 @@
         placeholder="Quantidade" min="1" value="1"/>
   </div>
   <button type="submit" class="btn btn-success btn-sm">Salvar</button>
-  <button onclick="cancela()" class="btn btn-danger btn-sm">Cancelar</button>
+  <button onclick="location.assign('/produto')" class="btn btn-danger btn-sm">Cancelar</button>
 </form>

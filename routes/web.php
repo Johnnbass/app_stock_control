@@ -22,44 +22,44 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('/fornecedores')->group(function() {
+Route::prefix('/fornecedor')->group(function() {
     Route::get('/', function () {
         return view('vendor.index');
     });
     Route::get('/novo', function () {
-        return view('vendor.create');
+        return view('vendor.create_edit', ['id' => '']);
     });
     Route::get('/editar/{id}', function (int $id) {
-        return view('vendor.edit', ['id' => $id]);
+        return view('vendor.create_edit', ['id' => $id]);
     });
 });
 
-Route::prefix('/categorias')->group(function() {
+Route::prefix('/categoria')->group(function() {
     Route::get('/', function () {
         return view('category.index');
     });
     Route::get('/novo', function () {
-        return view('category.create');
+        return view('category.create_edit', ['id' => '']);
     });
     Route::get('/editar/{id}', function (int $id) {
-        return view('category.edit', ['id' => $id]);
+        return view('category.create_edit', ['id' => $id]);
     });
 });
 
-Route::prefix('/produtos')->group(function() {
+Route::prefix('/produto')->group(function() {
     Route::get('/', function () {
         return view('product.index');
     });
     Route::get('/novo', function () {
-        return view('product.create');
+        return view('product.create_edit', ['id' => '']);
     });
     Route::get('/editar/{id}', function (int $id) {
-        return view('product.edit', ['id' => $id]);
+        return view('product.create_edit', ['id' => $id]);
     });
     Route::get('/adicionar-produtos', function () {
-        return view('product.add');
+        return view('product.add_sub');
     });
     Route::get('/baixar-produtos', function () {
-        return view('product.sub');
+        return view('product.add_sub');
     });
 });

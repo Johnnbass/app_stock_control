@@ -62,6 +62,7 @@ class CategoryController extends Controller
 
     /**
      * Display a listing of the resource.
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()

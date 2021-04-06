@@ -31,7 +31,7 @@ class CategoryController extends Controller
     private function setError()
     {
         return response()->json([
-            'error' => 'Não foi possível concluir a operação. Registro não encontrado.'
+            'msg' => 'Não foi possível concluir a operação. Registro não encontrado.'
         ], 404);
     }
 
@@ -62,6 +62,7 @@ class CategoryController extends Controller
 
     /**
      * Display a listing of the resource.
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()

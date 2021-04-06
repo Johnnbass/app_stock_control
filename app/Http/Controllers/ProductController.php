@@ -81,8 +81,8 @@ class ProductController extends Controller
 
     protected function caractersProcessing($string)
     {
-        $vowels = ['a', 'e', 'i', 'o', 'u'];
-        return strtoupper(substr(str_replace($vowels, '', $string), 0, 3));
+        $chars = [' ', 'a', 'e', 'i', 'o', 'u'];
+        return strtoupper(substr(str_replace($chars, '', $string), 0, 3));
     }
 
     /**

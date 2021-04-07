@@ -12,10 +12,26 @@ const endpoint = `/api/${menus[menu]}/`;
 const itemID = $("#id").val();
 
 function loadData() {
-    $.getJSON(endpoint, function(data) {
-        for (let i = 0; i < data.length; i++) {
-            let line = mountLine(data[i]);
-            $(`#${menuTable}>tbody`).append(line);
+    $.ajax({
+        type: "GET",
+        url: endpoint,
+        dataType: "json",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", localStorage.getItem('_token'));
+        },
+        success: function (data) {
+            for (let i = 0; i < data.length; i++) {
+                let line = mountLine(data[i]);
+                $(`#${menuTable}>tbody`).append(line);
+            }
+        },
+        complete: function (xhr, status) {
+            if (status === 'error') {
+                location.replace('/login');
+            }
+        },
+        error: function (xhr, status) {
+
         }
     });
 }
@@ -35,8 +51,8 @@ function deleteData(id) {
             },
             error: function(xhr) {
                 const error = xhr.responseJSON;
-
-                console.log("Ocorreu um erro inesperado: " + error);
+                console.error("Ocorreu um erro inesperado: " + error);
+                location.replace('/');
             }
         });
     }

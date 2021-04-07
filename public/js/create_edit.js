@@ -1,7 +1,8 @@
 $.ajaxSetup({
     headers: {
         "X-CSRF-TOKEN": "{{ csrf_token() }}",
-        Accept: "application/json"
+        Accept: "application/json",
+        Authorization: localStorage.getItem('_token')
     }
 });
 

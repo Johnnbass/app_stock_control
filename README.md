@@ -13,17 +13,22 @@
 - Instalar as extensões:<br>
   $ sudo apt install php7.4-mbstring php7.4-dom -y
 
-- A partir da raiz do projeto, instale as dependências do projeto:<br>
+### A partir daqui, todos os comando devem ser rodados a partir da raiz do projeto
+
+- Instale as dependências do projeto:<br>
   $ composer install<br>
   $ npm install
 
 - A partir da sua conexão de banco de dados local, crie a database "stock_control" e configure em conjunto com as credenciais de conexão com o banco conforme .env.example
 
-- A partir da raiz do projeto, gere a chave da aplicação:<br>
+- Gere a chave da aplicação:<br>
   $ php artisan key:generate
 
-- A partir da raiz do projeto, instale as migrations do projeto:<br>
+- Rode as migrations do projeto:<br>
   $ php artisan migrate:refresh
 
-- A partir da raiz do projeto, rode o servidor embutido:<br>
+- Gere a chave secreta do JWT: (deverá aparecer dentro do .env)<br>
+  $ php artisan jwt secret
+
+- Rode o servidor embutido:<br>
   $ php artisan serve

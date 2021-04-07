@@ -4,7 +4,7 @@
   <input type="hidden" name="opType" id="opType" value="{{ $opType }}">
   <div class="form-group">
     <label for="product_id">Produto</label>
-    <select class="form-control" name="product_id" id="product_id">
+    <select class="form-control" name="product_id" id="product_id" required>
         <option value="">Selecione o produto</option>
     </select>
   </div>

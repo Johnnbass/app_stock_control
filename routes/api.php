@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'AuthController@login');
 
-// Route::middleware('jwt.auth')->group(function() {
+Route::middleware('jwt.auth')->group(function() {
     Route::post('me', 'AuthController@me');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('logout', 'AuthController@logout');
@@ -32,4 +32,4 @@ Route::post('login', 'AuthController@login');
     
     Route::post('adicionar-produtos', 'ProductController@increment');
     Route::post('baixar-produtos', 'ProductController@decrement');
-// });
+});

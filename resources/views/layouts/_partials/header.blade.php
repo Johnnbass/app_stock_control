@@ -27,7 +27,10 @@
             </li>
             <li @if ($current == 'relatorio') class="nav-item active" @else class="nav-item" @endif>
                 <a class="nav-link" href="/relatorio">Relatório</a>
-              </li>
+            </li>
+            <li>
+                <a id="logout" class="nav-link" href="#">Sair</a>
+            </li>
         </ul>
     </div>
 </nav>

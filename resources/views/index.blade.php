@@ -1,12 +1,12 @@
 @extends('layouts.app', ["current" => "home"])
 
 @section('body')
-    <h3>Controle de Estoque</h3>
-    <p>
-        Bem vindo ao seu sistema de controle de estoque.
-        Aqui você pode gerenciar seus fornecedores, categorias e produtos.
-    </p>
     <div class="container">
+        <h3>Controle de Estoque</h3>
+        <p>
+            Bem vindo ao seu sistema de controle de estoque.
+            Aqui você pode gerenciar seus fornecedores, categorias e produtos.
+        </p>
         <div id="lowStockAlert"></div>
         <div class="row">
             <div class="card-deck">
@@ -51,22 +51,38 @@
             let alertMsg = '';
             let lowStock = 0;
 
-            $.getJSON('/api/produto', function(data) {
-                for (d of data) {
-                    if (d.amount < 100) {
-                        alertMsg += `* ${d.sku} - ${d.name}<br>`;
-                        lowStock++;
+            $.ajax({
+                type: "GET",
+                url: '/api/produto',
+                dataType: "json",
+                beforeSend: function(request) {
+                    request.setRequestHeader("Authorization", localStorage.getItem('_token'));
+                },
+                success: function(data) {
+                    for (d of data) {
+                        if (d.amount < 100) {
+                            alertMsg += `* ${d.sku} - ${d.name}<br>`;
+                            lowStock++;
+                        }
                     }
-                }
 
-                alert = `<div class = "alert alert-danger" role = "alert" >
-                            <strong>Atenção!</strong><br>
-                            Os seguintes produtos encontram-se com o estoque baixo:<br>
-                            ${alertMsg}
-                        </div>`;
-                console.log(data.length)
-                if (lowStock > 0) {
-                    $('#lowStockAlert').html(alert);
+                    alert = `<div class = "alert alert-danger" role = "alert" >
+                                    <strong>Atenção!</strong><br>
+                                    Os seguintes produtos encontram-se com o estoque baixo:<br>
+                                    ${alertMsg}
+                                </div>`;
+                    console.log(data.length)
+                    if (lowStock > 0) {
+                        $('#lowStockAlert').html(alert);
+                    }
+                },
+                complete: function(xhr, status) {
+                    if (status === 'error') {
+                        location.replace('/login');
+                    }
+                },
+                error: function(xhr, status) {
+
                 }
             });
         }

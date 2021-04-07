@@ -34,15 +34,15 @@
             let disabled = (data.products.length > 0) ? 'disabled' : '';
 
             let line = `<tr>
-                          <td>${date.date} - ${date.time}</td>
-                          <td>${data.name}</td>
-                          <td>${data.email}</td>
-                          <td>${data.address}</td>
-                          <td>
-                              <button class="btn btn-sm btn-secondary" onclick="editData(${data.id})">Editar</button>
-                              <button class="btn btn-sm btn-danger" onclick="deleteData(${data.id})" ${disabled}>Excluir</button>
-                          </td>
-                      </tr>`;
+                            <td>${date.date} - ${date.time}</td>
+                            <td>${data.name}</td>
+                            <td>${data.email}</td>
+                            <td>${data.address}</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary" onclick="editData(${data.id})">Editar</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteData(${data.id})" ${disabled}>Excluir</button>
+                            </td>
+                        </tr>`;
             return line;
         }
 

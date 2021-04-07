@@ -51,5 +51,6 @@
                         </tr>`;
             return line;
         }
+
     </script>
 @endsection

@@ -14,17 +14,20 @@
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto">
             <li @if ($current == 'home') class="nav-item active" @else class="nav-item" @endif>
-                <a class="nav-link" href="/">Home </a>
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li @if ($current == 'produto') class="nav-item active" @else class="nav-item" @endif>
                 <a class="nav-link" href="/produto">Produtos</a>
             </li>
             <li @if ($current == 'categoria') class="nav-item active" @else class="nav-item" @endif>
-                <a class="nav-link" href="/categoria">Categorias </a>
+                <a class="nav-link" href="/categoria">Categorias</a>
             </li>
             <li @if ($current == 'fornecedor') class="nav-item active" @else class="nav-item" @endif>
-              <a class="nav-link" href="/fornecedor">Fornecedores </a>
-          </li>
+              <a class="nav-link" href="/fornecedor">Fornecedores</a>
+            </li>
+            <li @if ($current == 'relatorio') class="nav-item active" @else class="nav-item" @endif>
+                <a class="nav-link" href="/relatorio">Relatório</a>
+              </li>
         </ul>
     </div>
 </nav>

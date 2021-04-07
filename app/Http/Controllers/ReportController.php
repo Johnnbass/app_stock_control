@@ -20,12 +20,13 @@ class ReportController extends Controller
     private function setError()
     {
         return response()->json([
-            'msg' => 'Não foi possível concluir a operação. Registro não encontrado.'
+            'msg' => 'Não foi possível concluir a operação. Registro(s) não encontrado(s).'
         ], 404);
     }
 
     /**
      * Display a listing of the resource.
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -34,7 +35,13 @@ class ReportController extends Controller
         if ($report->count() === 0) {
             return $this->setError();
         }
-        return response()->json($report, 200);
+
+        $reportData = $report->toArray();
+        foreach ($reportData as $data) {
+            $d[date('d-m-Y', strtotime($data['created_at']))][$data['product_sku']][$data['type']][] = $data['amount'];
+        }
+        asort($d);
+        return response()->json($d, 200);
     }
 
     /**
@@ -49,5 +56,4 @@ class ReportController extends Controller
 
         return response()->json($report, 200);
     }
-
 }

@@ -47,11 +47,15 @@ $(`#${menuForm}`).submit(function(e) {
             location.assign(`/${menus[menu]}`);
         },
         error: function(xhr) {
-            let error = xhr.responseJSON.errors;
             let ret = "";
+            let error = xhr.responseJSON.errors;
 
-            for (err in error) {
-                ret += "* " + error[err] + "\n";
+            if (error) {
+                for (err in error) {
+                    ret += "* " + error[err] + "\n";
+                }
+            } else {
+                ret = xhr.responseJSON.msg;
             }
 
             alert(ret);

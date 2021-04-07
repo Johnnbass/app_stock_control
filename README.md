@@ -1,6 +1,6 @@
 ## Stock Control - App de controle de estoque
 
-- Requisitos: Composer, MySQL 8, PHP 7, Laravel 8, VueJS 3
+- Requisitos: Composer, MySQL 8, PHP 7, Laravel 8, jQuery 3.2+
 
 ### Passos para rodar a aplicação:
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Report;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,7 @@ class ProductController extends Controller
     private function setError()
     {
         return response()->json([
-            'msg' => 'Não foi possível concluir a operação. Registro não encontrado.'
+            'msg' => 'Não foi possível concluir a operação. Registro(s) não encontrado(s).'
         ], 404);
     }
 
@@ -83,7 +84,7 @@ class ProductController extends Controller
         return "{$vendor} {$category} {$product} {$timestamp}";
     }
 
-    protected function caractersProcessing($string)
+    private function caractersProcessing($string)
     {
         $chars = [' ', 'a', 'e', 'i', 'o', 'u'];
         return strtoupper(substr(str_replace($chars, '', $string), 0, 3));
@@ -171,7 +172,28 @@ class ProductController extends Controller
         return response()->json(['msg' => 'O produto foi excluído com sucesso'], 200);
     }
 
-    public function dataProcessing($request)
+    /**
+     * Registry product add and sub actions to reports
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function registryAction($sku, $opType, $amount, $note)
+    {
+        $report = new Report();
+        $report->product_sku = $sku;
+        $report->type = $opType;
+        $report->amount = $amount;
+        $report->note = $note;
+        $report->save();
+    }
+
+    /**
+     * Validate and retrieve data
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return App\Product $product or \Illuminate\Http\JsonResponse
+     */
+    private function dataProcessing($request)
     {
         $id = (int) $request->get('product_id');
 
@@ -197,11 +219,18 @@ class ProductController extends Controller
         $product = $this->dataProcessing($request);
 
         $product->amount += $amount;
-        $amount = $product->amount;
+        $retAmount = $product->amount;
 
-        $product->update();
+        $sku = $product->sku;
+        $opType = 'add';
+        $note = "Adição de {$amount} unidades efetuada nesta data.";
 
-        return response()->json(['msg' => "Quantidade atualizada com sucesso. Saldo atual: {$amount}"], 200);
+        $result = $product->update();
+        if ($result) {
+            $this->registryAction($sku, $opType, $amount, $note);
+        }
+
+        return response()->json(['msg' => "Quantidade atualizada com sucesso. Saldo atual: {$retAmount}"], 200);
     }
 
     /**
@@ -215,10 +244,24 @@ class ProductController extends Controller
         $amount = (int) $request->get('amount');
         $product = $this->dataProcessing($request);
 
-        $product->amount -= $amount;
-        $amount = $product->amount;
-        $product->update();
+        $currentAmount = $product->amount;
 
-        return response()->json(['msg' => "Quantidade atualizada com sucesso. Saldo atual: {$amount}"], 200);
+        if ($currentAmount < $amount) {
+            return response()->json(['msg' => "A quantidade informada excede a quantidade disponível em estoque. Saldo atual: {$currentAmount}"], 400);
+        }
+
+        $product->amount -= $amount;
+        $retAmount = $product->amount;
+
+        $sku = $product->sku;
+        $opType = 'sub';
+        $note = "Baixa de {$amount} unidades efetuada nesta data.";
+
+        $result = $product->update();
+        if ($result) {
+            $this->registryAction($sku, $opType, $amount, $note);
+        }
+
+        return response()->json(['msg' => "Quantidade atualizada com sucesso. Saldo atual: {$retAmount}"], 200);
     }
 }

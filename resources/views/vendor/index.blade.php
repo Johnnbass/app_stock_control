@@ -30,23 +30,11 @@
     <script src="{{ asset('js/list.js') }}" type="text/javascript"></script>
     <script>
         function mountLine(data) {
-            let date = new Date(data.created_at);
-            let time = null;
+            const date = getDateTime(data.created_at);
             let disabled = (data.products.length > 0) ? 'disabled' : '';
 
-            time =
-                (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
-                ":" +
-                (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
-            date =
-                (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-                "/" +
-                (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
-                "/" +
-                date.getFullYear();
-
             let line = `<tr>
-                          <td>${date} - ${time}</td>
+                          <td>${date.date} - ${date.time}</td>
                           <td>${data.name}</td>
                           <td>${data.email}</td>
                           <td>${data.address}</td>

@@ -31,7 +31,7 @@ class VendorController extends Controller
     private function setError()
     {
         return response()->json([
-            'msg' => 'Não foi possível concluir a operação. Registro não encontrado.'
+            'msg' => 'Não foi possível concluir a operação. Registro(s) não encontrado(s).'
         ], 404);
     }
 

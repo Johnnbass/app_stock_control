@@ -63,3 +63,7 @@ Route::prefix('/produto')->group(function() {
         return view('product.add_sub', ['opType' => 'sub']);
     });
 });
+
+Route::get('/relatorio', function() {
+    return view('report.index');
+});

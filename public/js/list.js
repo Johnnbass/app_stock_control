@@ -46,6 +46,24 @@ function editData(id) {
     location.assign(`/${menus[menu]}/editar/${id}`);
 }
 
+function getDateTime($date) {
+    let date = new Date($date);
+    let time = null;
+
+    time =
+        (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
+        ":" +
+        (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+    date =
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
+        "/" +
+        (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
+        "/" +
+        date.getFullYear();
+
+    return { date, time };
+}
+
 $(function() {
     loadData();
 });

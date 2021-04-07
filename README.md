@@ -25,10 +25,17 @@
   $ php artisan key:generate
 
 - Rode as migrations do projeto:<br>
-  $ php artisan migrate:refresh
+  $ php artisan migrate
 
 - Gere a chave secreta do JWT: (deverá aparecer dentro do .env)<br>
   $ php artisan jwt secret
 
 - Rode o servidor embutido:<br>
   $ php artisan serve
+
+### Observações:<br>
+- Dados do usuário administrador:<br>
+Usuário: admin@admin.com<br>
+Senha: admin12345
+
+- Na raiz do projeto se encontra o json com as collections do postman para teste dos endpoints

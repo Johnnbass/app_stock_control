@@ -38,7 +38,7 @@ function loadData() {
 
 function deleteData(id) {
     let res = confirm(
-        `Este(a) ${menus[menu]} será excluído, esta ação não pode ser revertida. Deseja prosseguir?`
+        `Este item será excluído, esta ação não pode ser revertida. Deseja prosseguir?`
     );
 
     if (res) {
